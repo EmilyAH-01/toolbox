@@ -18,7 +18,15 @@ if (process.env.NODE_ENV === 'production') {
 app.use(routes);
 
 // Connect to database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/toolbox');
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/toolbox',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 
 // Start the server
 app.listen(PORT, function() {
