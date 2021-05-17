@@ -1,15 +1,20 @@
 import './App.css';
-import Calculator from './pages/Calculator';
 import Calendar from './pages/Calendar';
 import Todo from './pages/Todo';
+import { Container, Row, Col } from './components/Grid';
 
 function App() {
   return (
-    <div className="app">
-      <Todo />
-      <Calculator />
-      <Calendar />
-    </div>
+    <Container className='app'>
+      <Row>
+        <Col size='m7 s12'>
+          <Calendar />
+        </Col>
+        <Col size='m5 s12'>
+          <Todo />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

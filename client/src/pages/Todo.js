@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import API from '../utils/API';
+import { List, ListItem } from '../components/List';
 
 function Todo() {
   const [todos, setTodos] = useState([])
@@ -35,6 +36,7 @@ function Todo() {
         .then(res => loadTodos())
         .catch(err => console.log(err));
     }
+    document.getElementById('task-form').reset();
   };
 
   function handleTaskUpdate(id) {
@@ -44,11 +46,11 @@ function Todo() {
   };
 
   return (
-    <div className='container'>
+    <div>
       <h1>To-Do List</h1>
-      <form>
+      <form id='task-form'>
         <input 
-          className='task-entry' 
+          className='task-entry'
           onChange={handleInputChange}
           name='content'
           placeholder='Enter a task'
@@ -58,19 +60,17 @@ function Todo() {
           onClick={handleFormSubmit}
         >Enter Task</button>
       </form>
-
-      <div className="task-list">
-        <ul>
-          {todos.map(todo => (
-            <li key={todo._id}>
-              <strong>{todo.content}  </strong>
-              <button onClick={() => deleteTodo(todo._id)}>Delete</button>
-              <button onClick={() => handleTaskUpdate(todo._id)}>Completed</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      
+        <div className="task-list">
+          <List>
+            {todos.map(todo => (
+              <ListItem key={todo._id}>
+                <strong>{todo.content}  </strong>
+                <button onClick={() => deleteTodo(todo._id)}>Delete</button>
+                <button onClick={() => handleTaskUpdate(todo._id)}>Completed</button>
+              </ListItem>
+            ))}
+          </List>
+        </div>    
     </div>
   )
 }
