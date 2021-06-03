@@ -12,6 +12,14 @@ function Square(props) {
   );
 }
 
+function BlankSquare(props) {
+  return (
+    <button className="blank-square">
+      {props.value}
+    </button>
+  );
+}
+
 class Grid extends React.Component { 
   renderSquare(i) {
     return <Square 
@@ -20,11 +28,15 @@ class Grid extends React.Component {
     />
   }
 
+  renderBlankSquare(i) {
+    return <BlankSquare value={this.props.squares[i]} />
+  }
+
   render() {
     return (
       <div>
         <div className="board-row">
-          {this.renderSquare(0)}
+          {this.renderBlankSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
           {this.renderSquare(3)}
@@ -76,7 +88,6 @@ class Calendar extends React.Component {
       history: [{
         squares: Array(31).fill(null)
       }],
-      xIsNext: true,
       stepNumber: 0,
     };
   }
@@ -91,33 +102,30 @@ class Calendar extends React.Component {
       history: history.concat([{
         squares: squares
       }]),
-      xIsNext: !this.state.xIsNext,
       stepNumber: history.length,
     });
   }
 
   jumpTo(step) {
     this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0,
+      stepNumber: step
     });
   }
 
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
+    var month = "May";
+    var year = "2021";
 
     return (
       <div className="game">
-        <h1>Calendar</h1>
+        <h1>{month} {year}</h1>
         <div className="game-board">
           <Grid
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
-        </div>
-        <div className="game-info">
-          <h3>Month: </h3>
         </div>
       </div>
     );

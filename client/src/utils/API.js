@@ -13,5 +13,17 @@ export default {
   },
   updateTodo: function(id, data) {
     return axios.put('/api/todo/' + id, data);
+  },
+  getCal: function() {
+    return axios.get('/api/calendar');
+  },
+  deleteCal: function(id) {
+    return axios.delete('/api/calendar/' + id);
+  },
+  saveDate: function(data) {
+    return axios.post('/api/calendar', data);
+  },
+  updateDate: function(id, data) {
+    return axios.put('/api/calendar/' + id, data);
   }
 };
